@@ -21,9 +21,13 @@ public class ParkingLotTest {
 
     @Test
     public void givenAnEmptyParkingLot_ShouldReturnFirstSlotWhenAskedToGiveASlot() {
-        ParkingLot parkingLot = new ParkingLot();
-        int slots = parkingLot.getNearestParkingSlot();
-        Assert.assertEquals(1, slots);
+        try {
+            ParkingLot parkingLot = new ParkingLot();
+            int slots = parkingLot.getNearestParkingSlot();
+            Assert.assertEquals(1, slots);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -45,9 +49,13 @@ public class ParkingLotTest {
     public void givenACarForParkingInAnEmptyParkingLot_ShouldParkTheCarInFirstSlot() {
         Car car = new Car("MH 01 0001", "BMW", "Black");
         car.setParkingTime(LocalDateTime.of(2019, 12, 26, 14, 0, 0));
-        ParkingLot parkingLot = new ParkingLot();
-        parkingLot.parkTheCar(car);
-        Assert.assertEquals(car, parkingLot.parkingSpace[0]);
+        try {
+            ParkingLot parkingLot = new ParkingLot();
+            parkingLot.parkTheCar(car);
+            Assert.assertEquals(car, parkingLot.parkingSpace[0]);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -56,19 +64,27 @@ public class ParkingLotTest {
         Car car1 = new Car("MH 01 0002", "BMW", "Black");
         Car car2 = new Car("MH 01 0003", "BMW", "Black");
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.parkTheCar(car0);
-        parkingLot.parkTheCar(car1);
-        parkingLot.parkTheCar(car2);
-        Assert.assertEquals(car2, parkingLot.parkingSpace[2]);
+        try {
+            parkingLot.parkTheCar(car0);
+            parkingLot.parkTheCar(car1);
+            parkingLot.parkTheCar(car2);
+            Assert.assertEquals(car2, parkingLot.parkingSpace[2]);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     public void given1CarParkedInAParkingLot_WhenUnParked_ShouldReturn100ParkingAvailableSlots() {
         Car car0 = new Car("MH 01 0001", "BMW", "Black");
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.parkTheCar(car0);
-        parkingLot.unParkTheCar(car0);
-        Assert.assertEquals(null, parkingLot.parkingSpace[0]);
+        try {
+            parkingLot.parkTheCar(car0);
+            parkingLot.unParkTheCar(car0);
+            Assert.assertEquals(null, parkingLot.parkingSpace[0]);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -76,14 +92,31 @@ public class ParkingLotTest {
         Car car1 = new Car("MH 01 0001", "BMW", "Black");
         Car car2 = new Car("MH 01 0002", "BMW", "Black");
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.parkTheCar(car1);
-        parkingLot.parkTheCar(car2);
-        parkingLot.unParkTheCar(car1);
-        Car car3 = new Car("MH 01 0003", "BMW", "Black");
-        parkingLot.parkTheCar(car3);
-        Assert.assertEquals(car3, parkingLot.parkingSpace[0]);
+        try {
+            parkingLot.parkTheCar(car1);
+            parkingLot.parkTheCar(car2);
+            parkingLot.unParkTheCar(car1);
+            Car car3 = new Car("MH 01 0003", "BMW", "Black");
+            parkingLot.parkTheCar(car3);
+            Assert.assertEquals(car3, parkingLot.parkingSpace[0]);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Test
+    public void givenParkingSpace_WhenFullyOcccupied_ShouldThrowAnException() {
+        Car car1 = new Car("MH 01 0001", "BMW", "Black");
+        ParkingLot parkingLot = new ParkingLot();
+        try {
+            for (int i = 0; i < 100; i++) {
+                parkingLot.parkTheCar(car1);
+            }
+            parkingLot.parkTheCar(car1);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_FULL, e.type);
+        }
+    }
 }
 
 

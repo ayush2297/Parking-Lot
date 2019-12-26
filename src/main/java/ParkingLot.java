@@ -28,11 +28,15 @@ public class ParkingLot {
         return this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size();
     }
 
-    public int getNearestParkingSlot() {
-        return  (Integer) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
+    public int getNearestParkingSlot() throws ParkingLotException {
+        try {
+            return (Integer) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParkingLotException("No parking space available!!", ParkingLotException.ExceptionType.PARKING_FULL);
+        }
     }
 
-    public void parkTheCar(Car car) {
+    public void parkTheCar(Car car) throws ParkingLotException {
         int nearestParkingSlot = this.getNearestParkingSlot();
         car.parkingSlot = nearestParkingSlot;
         this.parkingAvailabilityStatus.get(Availability.OCCUPIED).add(car);
