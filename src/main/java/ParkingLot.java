@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class ParkingLot {
     private OccupancyRepository occupancyStatus;
     public Car[] parkingSpace;
@@ -37,13 +35,12 @@ public class ParkingLot {
 
     public void unParkTheCar(Car car) {
         this.parkingSpace[car.parkingSlot - 1] = null;
-        this.occupancyStatus.unparkUpdate(car);
+        this.occupancyStatus.unParkUpdate(car);
         this.isParkingFull = false;
     }
 
     private void isParkingSpaceAvailable() throws ParkingLotException {
         if (isParkingFull) {
-            this.isParkingFull = true;
             throw new ParkingLotException("No parking space available!!", ParkingLotException.ExceptionType.PARKING_FULL);
         }
     }

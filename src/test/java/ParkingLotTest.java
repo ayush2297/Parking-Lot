@@ -140,6 +140,25 @@ public class ParkingLotTest {
             Assert.assertFalse(parkingLot.isParkingFull);
         }
     }
+
+    @Test
+    public void givenFullyOccupiedParkingSpace_IfSomeoneTriesToParkTheCar_ShouldThrowAnException() {
+        Car car1 = new Car("MH 01 0001", "BMW", "Black");
+        ParkingLot parkingLot = new ParkingLot();
+        try {
+            for (int i = 0; i < 100; i++) {
+                parkingLot.parkTheCar(car1);
+            }
+            parkingLot.parkTheCar(car1);
+        } catch (ParkingLotException e) {
+            try {
+                parkingLot.parkTheCar(car1);
+            } catch (ParkingLotException ex) {
+                Assert.assertEquals(ParkingLotException.ExceptionType.PARKING_FULL,e.type);
+            }
+            Assert.assertTrue(parkingLot.isParkingFull);
+        }
+    }
 }
 
 

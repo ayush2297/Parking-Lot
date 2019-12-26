@@ -21,7 +21,7 @@ public class OccupancyRepository {
         this.parkingAvailabilityStatus.put(Availability.OCCUPIED, occupiedSlots);
     }
 
-    public void unparkUpdate(Car car) {
+    public void unParkUpdate(Car car) {
         this.parkingAvailabilityStatus.get(Availability.OCCUPIED).remove(car);
         this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).add(car.parkingSlot);
         Collections.sort(this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED));
