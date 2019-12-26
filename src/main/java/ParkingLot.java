@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    private Car[] parkingSlots;
+    public Car[] parkingSlots;
     Map<Availability, ArrayList> repository;
 
     public ParkingLot() {
@@ -36,5 +36,11 @@ public class ParkingLot {
         this.repository.get(Availability.OCCUPIED).add(nearestAllottedSlot);
         Collections.sort(this.repository.get(Availability.OCCUPIED));
         return nearestAllottedSlot;
+    }
+
+    public void parkTheCar(Car car) {
+        int nearestParkingSlot = this.getNearestParkingSlot();
+        this.parkingSlots[nearestParkingSlot-1]=car;
+
     }
 }

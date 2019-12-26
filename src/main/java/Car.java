@@ -19,6 +19,11 @@ public class Car {
         this.parkingTime=parkingTime;
     }
 
+    public long getTotalParkedTime(LocalDateTime unparkingTime) {
+        Duration timeDifference = Duration.between(this.parkingTime,unparkingTime);
+        return timeDifference.toHours();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -27,10 +32,5 @@ public class Car {
         return Objects.equals(carMake, car.carMake) &&
                 Objects.equals(numberPlate, car.numberPlate) &&
                 Objects.equals(carColor, car.carColor);
-    }
-
-    public long getTotalParkedTime(LocalDateTime unparkingTime) {
-        Duration timeDifference = Duration.between(this.parkingTime,unparkingTime);
-        return timeDifference.toHours();
     }
 }
