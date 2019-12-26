@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 public class ParkingLotTest {
 
     @Test
@@ -30,6 +32,15 @@ public class ParkingLotTest {
         Car expectedCar = new Car("MH 01 0001","BMW","Black");
         Assert.assertEquals(expectedCar,car);
     }
+
+    @Test
+    public void givenParkingTime2PMAndUnParkingTime5PM_ShouldReturnParkingTimeAs3Hrs() {
+        Car car = new Car("MH 01 0001","BMW","Black");
+        car.setParkingTime(LocalDateTime.of(2019,12,26,14,0,0));
+        long timeElapsed = car.getTotalParkedTime(LocalDateTime.of(2019,12,26,17,0,0));
+        Assert.assertEquals(3,timeElapsed);
+    }
+
 }
 
 
