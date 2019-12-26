@@ -62,6 +62,29 @@ public class ParkingLotTest {
         Assert.assertEquals(car2, parkingLot.parkingSpace[2]);
     }
 
+    @Test
+    public void given1CarParkedInAParkingLot_WhenUnParked_ShouldReturn100ParkingAvailableSlots() {
+        Car car0 = new Car("MH 01 0001", "BMW", "Black");
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.parkTheCar(car0);
+        parkingLot.unParkTheCar(car0);
+        Assert.assertEquals(null, parkingLot.parkingSpace[0]);
+    }
+
+    @Test
+    public void given2ParkedCars_IfFirstCarIsUnParkedAndThirdCarIsAdded_ShouldReturn1AsParkingAvailableSlotForCar3() {
+        Car car1 = new Car("MH 01 0001", "BMW", "Black");
+        Car car2 = new Car("MH 01 0002", "BMW", "Black");
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.parkTheCar(car1);
+        parkingLot.parkTheCar(car2);
+        parkingLot.unParkTheCar(car1);
+        Car car3 = new Car("MH 01 0003", "BMW", "Black");
+        parkingLot.parkTheCar(car3);
+        Assert.assertEquals(car3, parkingLot.parkingSpace[0]);
+    }
+
 }
+
 
 

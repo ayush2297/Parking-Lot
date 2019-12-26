@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ParkingLot {
     public Car[] parkingSpace;
@@ -15,8 +12,8 @@ public class ParkingLot {
     public void setInitialParkingStatus() {
         this.parkingAvailabilityStatus = new HashMap<>();
         ArrayList<Integer> unoccupiedSlots = new ArrayList(100);
-        ArrayList<Integer> occupiedSlots = new ArrayList();
-        for (int i = 1; i <= 100; i++) {
+        ArrayList<Car> occupiedSlots = new ArrayList();
+        for (Integer i = 1; i <= 100; i++) {
             unoccupiedSlots.add(i);
         }
         this.parkingAvailabilityStatus.put(Availability.UNOCCUPIED, unoccupiedSlots);
@@ -32,14 +29,20 @@ public class ParkingLot {
     }
 
     public int getNearestParkingSlot() {
-        int nearestAllottedSlot = (int) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
-        this.parkingAvailabilityStatus.get(Availability.OCCUPIED).add(nearestAllottedSlot);
-        Collections.sort(this.parkingAvailabilityStatus.get(Availability.OCCUPIED));
-        return nearestAllottedSlot;
+        return  (Integer) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
     }
 
     public void parkTheCar(Car car) {
         int nearestParkingSlot = this.getNearestParkingSlot();
-        this.parkingSpace[nearestParkingSlot-1]=car;
+        car.parkingSlot = nearestParkingSlot;
+        this.parkingAvailabilityStatus.get(Availability.OCCUPIED).add(car);
+        this.parkingSpace[nearestParkingSlot - 1] = car;
+    }
+
+    public void unParkTheCar(Car car) {
+        this.parkingSpace[car.parkingSlot - 1] = null;
+        this.parkingAvailabilityStatus.get(Availability.OCCUPIED).remove(car);
+        this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).add(car.parkingSlot);
+        Collections.sort(this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED));
     }
 }

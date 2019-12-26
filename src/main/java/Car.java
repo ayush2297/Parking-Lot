@@ -8,11 +8,20 @@ public class Car {
     public String numberPlate;
     public String carColor;
     public LocalDateTime parkingTime;
+    public Integer parkingSlot;
 
     public Car(String numberPlate, String carMake, String carColor) {
         this.numberPlate = numberPlate;
         this.carMake = carMake;
         this.carColor = carColor;
+    }
+
+    public Integer getParkingSlot() {
+        return parkingSlot;
+    }
+
+    public void setParkingSlot(Integer parkingSlot) {
+        this.parkingSlot = parkingSlot;
     }
 
     public void setParkingTime(LocalDateTime parkingTime) {
