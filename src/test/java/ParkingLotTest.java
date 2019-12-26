@@ -1,5 +1,4 @@
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ public class ParkingLotTest {
     @Test
     public void givenAnEmptyParkingLot_ShouldReturn100AvailableSlots() {
         ParkingLot parkingLot = new ParkingLot();
-        int slots = parkingLot.getAvailableSlots();
+        int slots = parkingLot.getCountOfAvailableSlots();
         Assert.assertEquals(100, slots);
     }
 
@@ -48,7 +47,7 @@ public class ParkingLotTest {
         car.setParkingTime(LocalDateTime.of(2019, 12, 26, 14, 0, 0));
         ParkingLot parkingLot = new ParkingLot();
         parkingLot.parkTheCar(car);
-        Assert.assertEquals(car, parkingLot.parkingSlots[0]);
+        Assert.assertEquals(car, parkingLot.parkingSpace[0]);
     }
 
 }

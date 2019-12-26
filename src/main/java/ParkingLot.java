@@ -4,43 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    public Car[] parkingSlots;
-    Map<Availability, ArrayList> repository;
+    public Car[] parkingSpace;
+    Map<Availability, ArrayList> parkingAvailabilityStatus;
 
     public ParkingLot() {
-        this.parkingSlots = new Car[100];
+        this.parkingSpace = new Car[100];
         this.setInitialParkingStatus();
     }
 
     public void setInitialParkingStatus() {
-        this.repository = new HashMap<>();
-        ArrayList unoccupiedSlots = new ArrayList(100);
-        ArrayList occupiedSlots = new ArrayList();
+        this.parkingAvailabilityStatus = new HashMap<>();
+        ArrayList<Integer> unoccupiedSlots = new ArrayList(100);
+        ArrayList<Integer> occupiedSlots = new ArrayList();
         for (int i = 0; i < 100; i++) {
             unoccupiedSlots.add(i);
         }
-        this.repository.put(Availability.UNOCCUPIED, unoccupiedSlots);
-        this.repository.put(Availability.OCCUPIED, occupiedSlots);
+        this.parkingAvailabilityStatus.put(Availability.UNOCCUPIED, unoccupiedSlots);
+        this.parkingAvailabilityStatus.put(Availability.OCCUPIED, occupiedSlots);
     }
 
     public int getParkingSize() {
-        return this.parkingSlots.length;
+        return this.parkingSpace.length;
     }
 
-    public int getAvailableSlots() {
-        return this.repository.get(Availability.UNOCCUPIED).size();
+    public int getCountOfAvailableSlots() {
+        return this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).size();
     }
 
     public int getNearestParkingSlot() {
-        int nearestAllottedSlot = (int) this.repository.get(Availability.UNOCCUPIED).remove(1);
-        this.repository.get(Availability.OCCUPIED).add(nearestAllottedSlot);
-        Collections.sort(this.repository.get(Availability.OCCUPIED));
+        int nearestAllottedSlot = (int) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(1);
+        this.parkingAvailabilityStatus.get(Availability.OCCUPIED).add(nearestAllottedSlot);
+        Collections.sort(this.parkingAvailabilityStatus.get(Availability.OCCUPIED));
         return nearestAllottedSlot;
     }
 
     public void parkTheCar(Car car) {
         int nearestParkingSlot = this.getNearestParkingSlot();
-        this.parkingSlots[nearestParkingSlot-1]=car;
-
+        this.parkingSpace[nearestParkingSlot-1]=car;
     }
 }
