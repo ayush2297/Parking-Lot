@@ -50,6 +50,18 @@ public class ParkingLotTest {
         Assert.assertEquals(car, parkingLot.parkingSpace[0]);
     }
 
+    @Test
+    public void given3CarForParkingInAnEmptyParkingLot_ShouldParkTheLastCarinThirdSlot() {
+        Car car0 = new Car("MH 01 0001", "BMW", "Black");
+        Car car1 = new Car("MH 01 0002", "BMW", "Black");
+        Car car2 = new Car("MH 01 0003", "BMW", "Black");
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.parkTheCar(car0);
+        parkingLot.parkTheCar(car1);
+        parkingLot.parkTheCar(car2);
+        Assert.assertEquals(car2, parkingLot.parkingSpace[2]);
+    }
+
 }
 
 

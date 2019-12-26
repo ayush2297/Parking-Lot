@@ -16,7 +16,7 @@ public class ParkingLot {
         this.parkingAvailabilityStatus = new HashMap<>();
         ArrayList<Integer> unoccupiedSlots = new ArrayList(100);
         ArrayList<Integer> occupiedSlots = new ArrayList();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 1; i <= 100; i++) {
             unoccupiedSlots.add(i);
         }
         this.parkingAvailabilityStatus.put(Availability.UNOCCUPIED, unoccupiedSlots);
@@ -32,7 +32,7 @@ public class ParkingLot {
     }
 
     public int getNearestParkingSlot() {
-        int nearestAllottedSlot = (int) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(1);
+        int nearestAllottedSlot = (int) this.parkingAvailabilityStatus.get(Availability.UNOCCUPIED).remove(0);
         this.parkingAvailabilityStatus.get(Availability.OCCUPIED).add(nearestAllottedSlot);
         Collections.sort(this.parkingAvailabilityStatus.get(Availability.OCCUPIED));
         return nearestAllottedSlot;
