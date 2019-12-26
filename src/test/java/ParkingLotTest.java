@@ -17,4 +17,13 @@ public class ParkingLotTest {
         Assert.assertEquals(100,slots);
     }
 
+    @Test
+    public void givenAnEmptyParkingLot_ShouldReturnFirstSlotWhenAskedToGiveASlot() {
+        ParkingLot parkingLot = new ParkingLot();
+        int slots = parkingLot.getNearestParkingSlot();
+        Assert.assertEquals(1,slots);
+    }
+
 }
+
+
