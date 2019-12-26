@@ -24,6 +24,12 @@ public class ParkingLotTest {
         Assert.assertEquals(1,slots);
     }
 
+    @Test
+    public void given2CarsWithSameDetails_ShouldReturnEqual() {
+        Car car = new Car("MH 01 0001","BMW","Black");
+        Car expectedCar = new Car("MH 01 0001","BMW","Black");
+        Assert.assertEquals(expectedCar,car);
+    }
 }
 
 
