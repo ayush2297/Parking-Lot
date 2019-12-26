@@ -16,14 +16,6 @@ public class Car {
         this.carColor = carColor;
     }
 
-    public Integer getParkingSlot() {
-        return parkingSlot;
-    }
-
-    public void setParkingSlot(Integer parkingSlot) {
-        this.parkingSlot = parkingSlot;
-    }
-
     public void setParkingTime(LocalDateTime parkingTime) {
         this.parkingTime=parkingTime;
     }
